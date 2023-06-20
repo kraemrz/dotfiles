@@ -1,15 +1,3 @@
-;=====================================================
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/jaagr/polybar
-;
-;   The README contains alot of information
-;	Themes : https://github.com/jaagr/dots/tree/master/.local/etc/themer/themes
-;   https://github.com/jaagr/polybar/wiki/
-;   https://github.com/jaagr/polybar/wiki/Configuration
-;   https://github.com/jaagr/polybar/wiki/Formatting
-;
-;=====================================================
 
 [global/wm]
 ;https://github.com/jaagr/polybar/wiki/Configuration#global-wm-settings
@@ -30,7 +18,7 @@ compositing-border = over
 ; Define fallback values used by all module formats
 format-foreground = #FF0000
 format-background = #00FF00
-format-underline = #FFBB00
+;format-underline = #FFBB00
 format-overline =
 format-spacing =
 format-padding =
@@ -42,7 +30,7 @@ format-connected-prefix-foreground = #FFBB00
 [colors]
 ; Nord theme ============
 background = #23262e
-foreground = #f3f4f5
+foreground = #FFFFFF
 foreground-active = #6790EB
 occupied = #cccccc
 occupied-active = #b3c7f5
@@ -52,26 +40,6 @@ volume-min = #a3be8c
 volume-med = #ebcb8b
 volume-max = #bf616a
 ; =======================
-
-; Gotham theme ==========
-; background = #0a0f14
-; foreground = #99d1ce
-; alert = #d26937
-; volume-min = #2aa889
-; volume-med = #edb443
-; volume-max = #c23127
-; =======================
-
-; INTRCPTR theme ============
-;background = ${xrdb:color0:#222}
-;background = #aa000000
-;background-alt = #444
-;foreground = ${xrdb:color7:#222}
-;foreground = #fff
-;foreground-alt = #555
-;primary = #ffb52a
-;secondary = #e60053
-;alert = #bd2c40
 
 ################################################################################
 ################################################################################
@@ -122,10 +90,11 @@ font-0 = "CormorantUnicase:size=10;0"
 font-1 = "FontAwesome:size=10;0"
 font-2 = "CormorantUnicase-Regular:size=10;0"
 font-3 = "CormorantUnicase-Regular:size=10;0"
+font-4 ="Iosevka:size=11;0"
 
-modules-left = i3 xwindow
-modules-center = networkspeedup networkspeeddown pub-ip wired-network
-modules-right = jgmenu pacman-updates aur-updates pavolume date kernel sep
+modules-left = sep i3
+modules-center = xwindow
+modules-right = jgmenu pacman-updates aur-updates kernel sep
 ;;memory2 cpu1
 
 separator = /
@@ -168,7 +137,6 @@ double-click-right =
 cursor-click =
 cursor-scroll =
 
-
 ################################################################################
 ################################################################################
 ############                         MAINBAR-I3-EXTRA               ############
@@ -184,7 +152,7 @@ monitor-strict = false
 override-redirect = false
 bottom = true
 fixed-center = true
-width = 100%
+width = 99.8%
 height = 30
 ;offset-x = 1%
 ;offset-y = 1%
@@ -218,10 +186,11 @@ font-0 = "Noto Sans:size=10;0"
 font-1 = "FontAwesome:size=10;0"
 font-2 = "Noto Sans:size=10;0"
 font-3 = "Noto Sans Mono:size=10;0"
+font-4 ="Iosevka:size=11;0"
 
-modules-left = load-average
-modules-center = networkspeeddown networkspeedup
-modules-right = filesystem
+modules-left =  sep2 playerctl 
+modules-center = pub-ip wired-network networkspeedup networkspeeddown
+modules-right = pavolume date uptime sep2
 
 separator = |
 
@@ -249,8 +218,8 @@ enable-ipc = true
 click-left =
 click-middle =
 click-right =
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+scroll-up = 
+scroll-down = 
 double-click-left =
 double-click-middle =
 double-click-right =
@@ -348,7 +317,7 @@ label-mode-background = #FFBB00
 ; focused = Active workspace on focused monitor
 label-focused = %icon% %name%
 label-focused-background = ${colors.background}
-label-focused-foreground = ${colors.foreground}
+label-focused-foreground = #FFBB00
 label-focused-underline = #6790eb
 label-focused-padding = 2
 
@@ -361,7 +330,7 @@ label-focused-padding = 2
 label-unfocused = %icon% %name%
 label-unfocused-padding = 2
 label-unfocused-background = ${colors.background}
-label-unfocused-foreground = ${colors.foreground}
+label-unfocused-foreground = #0cf270
 label-unfocused-underline =
 
 ; visible = Active workspace on unfocused monitor
@@ -380,78 +349,6 @@ label-urgent = %icon% %name%
 label-urgent-background = ${self.label-focused-background}
 label-urgent-foreground = #db104e
 label-urgent-padding = 2
-
-format-foreground = ${colors.foreground}
-format-background = ${colors.background}
-
-################################################################################
-################################################################################
-############                       MODULE BSPWM                     ############
-################################################################################
-################################################################################
-
-[module/bspwm]
-type = internal/bspwm
-
-enable-click = true
-enable-scroll = true
-reverse-scroll = true
-pin-workspaces = true
-
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
-ws-icon-6 = 7;
-ws-icon-7 = 8;
-ws-icon-8 = 9;
-ws-icon-9 = 10;
-ws-icon-default = " "
-
-
-format = <label-state> <label-mode>
-
-label-focused = %icon%
-label-focused-background = ${colors.background}
-label-focused-underline= #6790eb
-label-focused-padding = 4
-label-focused-foreground = #6790EB
-
-label-occupied = %icon%
-label-occupied-padding = 2
-label-occupied-background = ${colors.background}
-label-occupied-foreground = #6790EB
-
-label-urgent = %icon%
-label-urgent-padding = 2
-
-label-empty = %icon%
-label-empty-foreground = ${colors.foreground}
-label-empty-padding = 2
-label-empty-background = ${colors.background}
-label-monocle = "  "
-label-monocle-foreground = ${colors.foreground}
-label-tiled = "  "
-label-tiled-foreground = ${colors.foreground}
-label-fullscreen = "  "
-label-fullscreen-foreground = ${colors.foreground}
-label-floating = "  "
-label-floating-foreground = ${colors.foreground}
-label-pseudotiled = "  "
-label-pseudotiled-foreground = ${colors.foreground}
-label-locked = "  "
-label-locked-foreground = ${colors.foreground}
-label-sticky = "  "
-label-sticky-foreground = ${colors.foreground}
-label-private =  "     "
-label-private-foreground = ${colors.foreground}
-
-; Separator in between workspaces
-;label-separator = |
-;label-separator-padding = 10
-;label-separator-foreground = #ffb52a
 
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
@@ -483,7 +380,7 @@ format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
 format-prefix-foreground = #FFBB00
-format-underline = #FFBB00
+format-underline = ${colors.background}
 
 ################################################################################
 
@@ -596,9 +493,9 @@ date-alt = " %d-%m-%Y"
 time = %H:%M
 time-alt = %H:%M
 format-prefix = " "
-format-prefix-foreground = #FFBB00
-format-underline = #FFBB00
-format-foreground = ${colors.foreground}
+format-prefix-foreground = #FFFFFF
+format-underline = ${colors.background}
+format-foreground = #FFFFFF
 format-background = ${colors.background}
 ;label = %date%  %time% 
 label = %time%
@@ -770,7 +667,7 @@ format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
 format-prefix-foreground = #FFBB00
-format-underline = #FFBB00
+format-underline = ${colors.background}
 
 ################################################################################
 
@@ -781,6 +678,7 @@ exec = echo "ArcoLinux"
 click-left = "jgmenu_run >/dev/null 2>&1 &"
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
+format-underline = ${colors.background}
 
 ################################################################################
 
@@ -796,8 +694,8 @@ label = %output:10%
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
-format-prefix-foreground = #62FF00
-format-underline = #62FF00
+format-prefix-foreground = #FFFFFF
+;format-underline = #62FF00
 
 ################################################################################
 
@@ -917,7 +815,7 @@ format-connected-prefix = ""
 format-connected-prefix-foreground = #FFBB00
 format-connected-foreground = ${colors.foreground}
 format-connected-background = ${colors.background}
-;format-connected-underline = #62FF00
+format-connected-underline = ${colors.background}
 
 ################################################################################
 
@@ -934,7 +832,7 @@ format-connected-prefix = ""
 format-connected-prefix-foreground = #FFBB00
 format-connected-foreground = ${colors.foreground}
 format-connected-background = ${colors.background}
-;format-connected-underline = #62FF00
+format-connected-underline = ${colors.background}
 
 ################################################################################
 
@@ -948,7 +846,7 @@ format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
 format-prefix-foreground = #FFBB00
-format-underline = #FFBB00
+format-underline = ${colors.background}
 
 ################################################################################
 
@@ -977,11 +875,19 @@ click-right = exec pavucontrol
 click-left = ~/.config/polybar/scripts/pavolume.sh --togmute
 scroll-up = ~/.config/polybar/scripts/pavolume.sh --up
 scroll-down = ~/.config/polybar/scripts/pavolume.sh --down
-;format-underline = #000000
+format-underline = ${colors.background}
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
+################################################################################
 
+[module/playerctl]
+type = custom/script
+tail = true
+exec = stdbuf -o0 playerctl metadata -Ff '{{trunc(title,20)}} ({{trunc(artist,15)}}) %{A1:playerctl previous:}%{A} %{A1:playerctl play-pause:}<<{{uc(status)}}>>%{A} %{A1:playerctl next:}%{A}' | stdbuf -i0 -o0 sed -e 's/<<PLAYING>>//' -e 's/<<PAUSED>>//'
+exec-if = playerctl metadata -f {{playerName}} 2>/dev/null | grep -v mopidy >/dev/null
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
 
 ################################################################################
 
@@ -992,7 +898,7 @@ exec = ~/.config/polybar/scripts/pub-ip.sh
 interval = 100
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
-format-underline = #FFBB00
+format-underline = ${colors.background}
 label = %output%
 format-prefix = "  "
 format-prefix-foreground = #FFBB00
@@ -1016,8 +922,21 @@ format-underline = #62FF00
 ; alternative separator
 type = custom/text
 content = 
+content-foreground = #FFBB00
+content-background =  ${colors.background}
+format-underline = ${colors.background}
+format-foreground = #FFBB00
+format-background = ${colors.background}
+
+################################################################################
+
+[module/sep2]
+; alternative separator
+type = custom/text
+content = 
 content-foreground = ${colors.foreground}
 content-background =  ${colors.background}
+format-underline = ${colors.background}
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
@@ -1141,8 +1060,8 @@ label = Uptime : %output%
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = " "
-format-prefix-foreground = #C15D3E
-format-underline = #C15D3E
+format-prefix-foreground = #FFFFFF
+format-underline = ${colors.background}
 
 ################################################################################
 
@@ -1167,7 +1086,7 @@ click-left = variety --selector
 type = internal/volume
 format-volume = "<label-volume>  <bar-volume>"
 
-label-volume = " "
+label-volume = " ♪"
 label-volume-foreground = #40ad4b
 label-muted = muted
 
@@ -1231,7 +1150,7 @@ label-disconnected = %ifname% disconnected
 
 format-connected-foreground = ${colors.foreground}
 format-connected-background = ${colors.background}
-;format-connected-underline = #55aa55
+format-connected-underline = ${colors.background}
 format-connected-prefix = " "
 format-connected-prefix-foreground = #FFBB00
 format-connected-prefix-background = ${colors.background}
@@ -1343,7 +1262,6 @@ format-background = ${colors.background}
 
 ###############################################################################
 
-
 [module/xworkspaces]
 type = internal/xworkspaces
 
@@ -1355,10 +1273,10 @@ reverse-scroll = true
 
 icon-0 = 1;
 icon-1 = 2;
-icon-2 = 3;
+con-2 = 3;
 icon-3 = 4;
 icon-4 = 5;
-#icon-5 = 6;
+icon-5 = 6;
 format = <label-state>
 label-monitor = %name%
 

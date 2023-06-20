@@ -1,0 +1,352 @@
+# set Super key
+#-----------------------------------------------------------------------------
+set $mod Mod4
+
+# current displays
+#-----------------------------------------------------------------------------
+exec --no-startup-id xrandr --output DP0 --right-of HDMI-0 --auto
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+# using names instead of numbers for the workspaces
+#-----------------------------------------------------------------------------
+set $ws1 "1. Terminal "
+set $ws2 "2. Browser "
+set $ws3 "3. Files "
+set $ws4 "4. Music "
+set $ws5 "5. Coding "
+
+# switch to workspace
+#-----------------------------------------------------------------------------
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+#-----------------------------------------------------------------------------
+bindsym $mod+Shift+1 move container to workspace 1; workspace 1
+bindsym $mod+Shift+2 move container to workspace 2; workspace 2
+bindsym $mod+Shift+3 move container to workspace 3; workspace 3
+bindsym $mod+Shift+4 move container to workspace 4; workspace 4
+bindsym $mod+Shift+5 move container to workspace 5; workspace 5
+bindsym $mod+Shift+6 move container to workspace 6; workspace 6
+bindsym $mod+Shift+7 move container to workspace 7; workspace 7
+bindsym $mod+Shift+8 move container to workspace 8; workspace 8
+bindsym $mod+Shift+9 move container to workspace 9; workspace 9
+bindsym $mod+Shift+0 move container to workspace 10; workspace 10
+
+
+################# applications keyboard shortcuts  
+#-----------------------------------------------------------------------------
+
+# Alacritty terminal
+bindsym $mod+Return exec --no-startup-id alacritty;focus
+# Terminator
+bindsym $mod+control+Return exec --no-startup-id terminator;focus
+
+# System monitor
+bindsym control+Shift+Escape exec --no-startup-id xfce4-taskmanager;focus
+
+# search with catfish 
+for_window [class="catfish"] floating enable
+bindsym $mod+mod1+f exec --no-startup-id catfish;focus
+
+# pamac-manager
+bindsym control+mod1+p exec --no-startup-id pamac-manager
+
+# xkill
+bindsym --release $mod+Escape exec xkill
+
+# Browser
+bindsym mod1+b exec --no-startup-id vivaldi-stable;focus
+bindsym $mod+mod1+b exec --no-startup-id firefox;focus
+
+# Sublime text
+bindsym mod1+s exec --no-startup-id subl;focus
+
+# document comparison
+bindsym $mod+F5 exec --no-startup-id meld;focus
+
+# video player
+bindsym $mod+F6 exec --no-startup-id vlc;focus
+
+# virtual machine
+bindsym $mod+F7 exec --no-startup-id virtualbox;focus
+
+# file management
+for_window [class="Thunar"] focus
+bindsym $mod+Shift+Return exec --no-startup-id thunar;focus
+
+# music
+bindsym control+mod1+y exec --no-startup-id youtube-music;focus
+
+################# screenshots                      
+
+bindsym Print exec --no-startup-id scrot 'ArcoLinux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f $$(xdg-user-dir PICTURES)'
+bindsym Control+Print exec --no-startup-id xfce4-screenshooter
+
+################# common keybinds in my arcolinux
+
+# mod+d | start dmenu
+bindsym $mod+d exec --no-startup-id dmenu_run -i -nb '#292422' -nf '#fed13c' -sb '#fea63c' -sf '#191919' -fn 'CormorantUpright-Regular:bold:pixelsize=14'
+
+# mod+shift+d | start rofi
+bindsym $mod+shift+d exec --no-startup-id ~/.config/i3/launcher/launcher.sh
+
+# mod+ctrl+d | start rofi small
+bindsym $mod+ctrl+d exec --no-startup-id rofi -show drun -font "CormorantUpright-Regular 14"   
+
+# mod+shift+r | restart i3 inplace
+bindsym $mod+Shift+r restart
+
+# mod+shift+c | reload the configuration file 
+bindsym $mod+Shift+c reload 
+
+# mod+q | kill focused window
+bindsym $mod+q kill 
+
+# mod+x | ArcoLinux Logout
+bindsym $mod+X exec --no-startup-id archlinux-logout 
+
+# ctrl+alt+x - check toolbar for next choices
+bindsym control+mod1+X mode "$mode_system"
+set $mode_system System (k) lock, (l) logout, (u) suspend, (h) hibernate, (r) reboot, (s) shutdown
+mode "$mode_system" {
+    bindsym k exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
+    bindsym u exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+################# Moving around in i3              
+#-----------------------------------------------------------------------------
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+################# moving around workspaces         
+#-----------------------------------------------------------------------------
+# next/previous workspace
+bindsym Mod1+Tab workspace next
+bindsym Mod1+Shift+Tab workspace prev
+bindsym $mod+Tab workspace back_and_forth
+
+# navigate workspaces next / previous
+bindsym Mod1+Ctrl+Right workspace next
+bindsym Mod1+Ctrl+Left workspace prev
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+################# Tiling parameters                
+#-----------------------------------------------------------------------------
+# orientation for new workspaces
+default_orientation horizontal
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+# qwerty/azerty issue for letter z
+bindsym $mod+s layout stacking
+bindsym $mod+z layout tabbed
+bindsym $mod+e layout toggle split
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+################# resize  
+#-----------------------------------------------------------------------------
+# Resizing by 1
+bindsym $mod+Mod1+Ctrl+Right resize shrink width 1 px or 1 ppt
+bindsym $mod+Mod1+Ctrl+Up resize grow height 1 px or 1 ppt
+bindsym $mod+Mod1+Ctrl+Down resize shrink height 1 px or 1 ppt
+bindsym $mod+Mod1+Ctrl+Left resize grow width 1 px or 1 ppt
+
+################# choose the font                  
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+# choose your font
+font pango:CormorantUnicase-Regular 14
+
+################# autostart - execute applications at boot time
+# Autotiling
+exec_always --no-startup-id autotiling
+
+# vpn start if possible
+#exec_always --no-startup-id 
+
+# Authentication dialog
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# num lock activated
+exec_always --no-startup-id numlockx on
+
+# Conky
+#exec --no-startup-id conky -c ~/.config/i3/system-overview
+
+# feh sets wallpaper
+# exec --no-startup-id feh --bg-fill /usr/share/backgrounds/archlinux/arch-wallpaper.jpg &
+# exec --no-startup-id feh --bg-fill /usr/share/backgrounds/arcolinux/music-3072x2048.jpg &
+exec --no-startup-id feh --bg-fill /home/kraemr/Pictures/california.png &
+
+
+################# assign applications to workspaces (xprop)
+
+# make terminal start on workspace 1
+assign [class="Alacritty"]                             → $ws1
+
+# make browser start on workspace 2
+assign [class="Navigator|Vivaldi-stable"]              → $ws2
+
+# Workspace 3 file managers
+assign [class="Nemo|Thunar|Caja|nautilus|Nautilus"]    → $ws3
+
+# Workspace 4 YouTube-Music
+assign [class="YouTube Music"]                         → $ws4
+
+# Workspace 5 Sublime Text
+assign [class="subl|Subl|code"]                        → $ws5
+
+################# floating or tiled rules 
+
+for_window [class="Galculator"] floating enable
+for_window [class="Font-manager"] floating enable
+for_window [title="Copying"] floating enable
+for_window [title="Deleting"] floating enable
+for_window [title="Moving"] floating enable
+for_window [title="^Terminator Preferences$"] floating enable
+for_window [class="Alacritty"] focus
+
+################# bar toggle                       
+
+# bar toggle, hide or show
+bindsym $mod+ctrl+b bar mode toggle
+
+################# border control                   
+
+# Border control
+hide_edge_borders both
+bindsym $mod+shift+b exec --no-startup-id i3-msg border toggle
+
+# changing border style
+# super+t in arcolinux is starting terminal
+bindsym $mod+t border normal
+bindsym $mod+y border pixel 2
+bindsym $mod+u border none
+
+# new_float pixel 1
+new_float normal
+# new_float none
+
+################# Popups  control                  
+
+# Popups during fullscreen mode
+popup_during_fullscreen smart
+
+################# i3 gaps next                     
+
+for_window [class="^.*"] border pixel 2
+gaps inner 5
+gaps outer 5
+
+################# i3 gaps change                   
+
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+################# picom of i3wm                  
+
+# if you want transparency on non-focused windows, ...
+exec_always --no-startup-id picom --config ~/.config/i3/picom.conf
+
+bindsym control+mod1+o exec --no-startup-id ~/.config/i3/scripts/picom-toggle.sh
+
+################# bar appearance                   
+
+#Polybar
+exec_always --no-startup-id ~/.config/polybar/launch.sh &
+
+
+######START THEMING WM
+    # Theme name : ArcoLinux Default
+
+    # Window color settings
+    # class                 border  backgr. text    indicator
+    client.focused          #6790EB #6790EB #e5e5e5 #6790EB
+    client.unfocused        #222222 #222222 #aaaaaa #222222
+    client.focused_inactive #222222 #222222 #a9a9a9 #222222
+    client.placeholder      #222222 #222222 #aaaaaa #222222
+    client.urgent           #d42121 #d42121 #f7f7f7 #d42121
+
+    client.background       #242424
+
+    ##STOP THEMING WM
